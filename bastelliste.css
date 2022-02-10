@@ -1,0 +1,134 @@
+body {
+    background-color: #111;
+    color: #eee;
+    font-family: sans-serif;
+}
+
+label {
+    border: solid #444 1px;
+    border-right-width: 0px;
+    border-right-color: transparent;
+    border-radius: 5px;
+    padding: 2px;
+    margin-right: 0px;
+    background-color: #222;
+}
+
+input, select, button, textarea {
+    background-color: #222;
+    color: #fff;
+    border: solid 1px #555;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 2px;
+}
+
+input[type="text"], select {
+    border-left-width: 0px;
+    border-left-color: transparent;
+    margin-left: 0px;
+}
+
+input[type="submit"] {
+    font-size: 1.25em;
+}
+
+textarea {
+    transition-duration: 0.5s;
+}
+
+textarea.ta_unfocused {
+    height: 15vh;
+    width: 25%;
+}
+
+textarea.ta_focused {
+    height: 75vh;
+    width: 100%;
+    font-size: 12pt;
+}
+
+.md_buttons button{
+    font-size: 3vh;
+    height: 5vh;
+    width: 5vh;
+}
+
+.fineprint {
+	font-size: 0.5em;
+	animation: unset;
+	color: #ccc;
+}
+
+div.entry {
+    background-color: #222;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 3px;
+    font-family: monospace;
+    width: max-content;
+    margin: 5px;
+}
+
+p.e_title {
+    margin: 0;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+p.e_time {
+    margin: 0;
+    font-size: 0.75em;
+    color: #ccc;
+}
+
+div.e_details {
+    border-top: solid #555 2px;
+    padding-top: 3px;
+    margin: 0;
+    margin-top: 3px;
+    font-size: 1em;
+    font-family: sans-serif;
+}
+
+img {
+    max-width: 50vw;
+    max-height: 50vh;
+}
+
+a {
+    animation: rainbow-color linear 10s infinite;
+}
+
+@keyframes rainbow-color {
+    0% {color: red;}
+    12.5% {color: orange;}
+    25% {color: yellow;}
+    37.5% {color: green;}
+    50% {color: cyan;}
+    62.5% {color: lightblue;}
+    75% {color: magenta;}
+    87.5% {color: purple;}
+    100% {color: red;}
+}
+
+
+div.c_important {
+    background-color: #500;
+    border-color: #600;
+}
+
+div.c_idea {
+    background-color: #050;
+    border-color: #060;
+}
+
+div.c_school {
+    background-color: #550;
+    border-color: #660;
+}
+
+div.c_basteln {
+    background-color: #005;
+    border-color: #006;
+}
