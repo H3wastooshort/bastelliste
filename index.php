@@ -19,8 +19,15 @@ if (!isset($_SESSION["logged_in"])) {
 	    http_response_code(401);
 	    die('No login, no access :(');
 	} else {
-		//USER LIST
-	    $users["user here"] = 'password hash here';
+		
+		$a_json = file_get_contents("accounts.json");
+		if ($a_json == false) {
+			http_response_code(500);
+			die("<h1>Error!</h1><p>Can't access accounts.json</p>");
+		}
+		else {
+			$users = json_decode($a_json, true);
+		}
 		
 		if (in_array($_SERVER['PHP_AUTH_USER'], array_keys($users))) {
 			if (!password_verify($_SERVER['PHP_AUTH_PW'], $users[$_SERVER['PHP_AUTH_USER']])) {
