@@ -1,9 +1,9 @@
 <?
-//using etags instead
-/*if (!isset($_GET["json_hash"])) {
+//using this again
+if (isset($_GET["list_hash"])) {
 	header("Content-Type: text/plain");
-	die(sha1(file_get_contents("bastelliste.json")));
-}*/
+	die(json_encode(sha1(file_get_contents("bastelliste.json"))));
+}
 
 //very bad auth code
 session_set_cookie_params([
@@ -282,32 +282,33 @@ var lastIdentifier = "";
 var lastIdentifierValid = false;
 
 function lookForChange() {
-    fetch('bastelliste.json', {method: 'HEAD', headers: {'Cache-Control' : 'no-cache'}}).then(function(r){
-        if (r.ok) {
-            console.log("request ok");
-			let identifier = r.headers.get("ETag");
-			
-			if (lastIdentifierValid) {
-				console.log("identifier valid.");
-				if (identifier != lastIdentifier) {
-					console.log("identifier changed.");
-					if (textarea.value.length == 0) {
-						console.log("no text present");
-						window.location.reload();
-					}
-					else {
-						alert("Information: \nEntries not up to date. Please refresh page when done editing.");
-					}
+    fetch('?list_hash', {method: 'GET', headers: {'Cache-Control' : 'no-cache'}}).then(response => response.json())
+	.then(identifier => {
+		console.log("request ok");
+		
+		if (lastIdentifierValid) {
+			console.log("identifier valid.");
+			if (identifier != lastIdentifier) {
+				console.log("identifier changed.");
+				if (textarea.value.length == 0) {
+					console.log("no text present");
+					window.location.reload();
+				}
+				else {
+					alert("Information: \nEntries not up to date. Please refresh page when done editing.");
 				}
 			}
-			else {
-				console.log("identifier not yet valid.");
-			}
-			
-			lastIdentifier = identifier;
-			lastIdentifierValid = true;
-        }
-    });
+		}
+		else {
+			console.log("identifier not yet valid.");
+		}
+		
+		lastIdentifier = identifier;
+		lastIdentifierValid = true;
+    })
+	.catch(e => {
+		console.log("request error", e);
+	});
 }
 
 lookForChange();
