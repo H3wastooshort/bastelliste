@@ -1,5 +1,4 @@
 <?
-//using this again
 if (isset($_GET["list_hash"])) {
 	header("Content-Type: text/plain");
 	die(json_encode(sha1(file_get_contents("bastelliste.json"))));
@@ -54,7 +53,7 @@ if (empty($json)) {
 }
 $entries = json_decode($json, true);
 
-if (isset($_POST["add_entry"])) {
+if (isset($_POST["add_entry"])) { //Add an entry to live list
 	if (isset($_POST["title"]) and isset($_POST["category"]) and isset($_POST["details"])) {
 		
 		if (isset($_POST["edit_id"])) {
@@ -82,11 +81,11 @@ if (isset($_POST["add_entry"])) {
 	}
 }
 
-if (isset($_POST["delete_entry"])) {
+if (isset($_POST["delete_entry"])) { //Delete from live list and throw into a sort-of-json recycling bin
 	if (isset($_POST["id"]) and !empty($_POST["id"])) {
 		for ($i = 0; $i < count($entries); $i++) {
             if ($entries[$i]["id"] == $_POST["id"]) {
-				$delfile = fopen("deleted.csv", "a");
+				$delfile = fopen("deleted.txt", "a");
 				fwrite($delfile, json_encode($entries[$i]));
 				fwrite($delfile, ",\n");
 				fclose($delfile);
@@ -265,7 +264,7 @@ function time_cmp($a, $b)
 
 usort($entries, "time_cmp");
 
-foreach ($entries as $entry) {
+foreach ($entries as $entry) { //Output entries from live list
 	$title = htmlspecialchars($entry["title"]);
 	$time = date(DATE_RFC822, $entry["time"]);
 	$category = htmlspecialchars($entry["category"]);
